@@ -4,14 +4,10 @@ from .models import Task
 from rest_framework.views import APIView
 from .serializers import TaskSerializer
 class TaskListView(generics.ListAPIView):
-	queryset = Task.objects.all()
 	serializer_class = TaskSerializer
-
-def task_list(request):
-	if request.method == "GET":
-		tasks = Task.objects.filter(complete=False).order_by("-created_at")
-		return render(request, "task/task_list.html", {"tasks": tasks})
-
+	def get_queryset(self):
+		return Task.objects.filter(complete=False).order_by("-created_at")
+		
 
 class TaskDetailView(generics.RetrieveAPIView):
 	queryset = Task.objects.all()
