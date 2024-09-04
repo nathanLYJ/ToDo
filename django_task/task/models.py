@@ -12,7 +12,7 @@ class Task(models.Model):
 	def __str__(self):
 		return self.title
 	
-	def Meta():
+	class Meta():
 		ordering = ["-created_at"]
 	
 	def is_overdue(self):
